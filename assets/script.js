@@ -72,4 +72,37 @@ var generatePassword = function () {
        window.alert("Please make sure you select atleast one of the character types.")
      };
    };
-   
+
+   // Enter For loop to generate password
+  var generatedPassword = ""; // Start with empty string; every loop will add another character
+
+ 
+  for (i=0; i < passwordLength; i++) {
+    // Create index to choose from our built list of characters
+    // the index must be between 0 and the length of acceptableChars - 1 
+    // (i.e. length of acceptableChars is 52; random index must be between 0 & 51 inclusive)
+    var charIndex = Math.random() // Random number between 0 & 1 (not including 1)
+    charIndex = charIndex * acceptableChars.length // Random number between 0 & acceptableChars length (not including length)
+    charIndex = Math.floor(charIndex) // Rounds random number down; now between 0 & acceptableChars length-1
+
+    var passwordChar = acceptableChars.charAt(charIndex) // Extract character at the certain index
+    generatedPassword += passwordChar // Append the character to the generated password
+  }
+
+  return generatedPassword; 
+}
+
+var generateBtn = document.querySelector("#generate");
+
+
+function writePassword() {
+  var password = generatePassword();
+  var passwordText = document.querySelector("#password");
+
+  passwordText.value = password;
+  console.log("Password generated!")
+
+}
+
+// Add event listener to generate button
+generateBtn.addEventListener("click", writePassword);
